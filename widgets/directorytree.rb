@@ -1,4 +1,4 @@
-require 'rbcurse/rtree'
+require 'rbcurse/core/widgets/rtree'
 #require 'forwardable'
 # we can extend from Tree but lets just try forwarding
 module RubyCurses

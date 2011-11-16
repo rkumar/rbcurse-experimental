@@ -11,7 +11,7 @@
     Same as Ruby's License (http://www.ruby-lang.org/LICENSE.txt)
 
 =end
-require 'rbcurse/rtextview'
+require 'rbcurse/core/widgets/rtextview'
 
 include RubyCurses
 module RubyCurses
@@ -257,7 +257,7 @@ module RubyCurses
       super
     end
     def tabular
-      require 'rbcurse/extras/tabularwidget'
+      require 'rbcurse/core/widgets/tabularwidget'
       w = Ncurses.COLS
       h = Ncurses.LINES-1
       v_window = VER::Window.new(h,w,0,0)
@@ -552,7 +552,7 @@ module RubyCurses
     # this is just a test of the simple "most" menu
     # How can application add to this, or override
     def disp_menu  #:nodoc:
-      require 'rbcurse/extras/menutree'
+      require 'rbcurse/extras/widgets/menutree'
       # we need to put this into data-structure so that i can be manipulated by calling apps
       # This should not be at the widget level, too many types of menus. It should be at the app
       # level only if the user wants his app to use this kind of menu.

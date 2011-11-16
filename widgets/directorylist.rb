@@ -2,7 +2,7 @@ require 'rbcurse'
 require 'fileutils'
 require 'rbcurse/rlistbox'
 require 'rbcurse/vieditable'
-require 'rbcurse/undomanager'
+require 'rbcurse/experimental/widgets/undomanager'
 ##
 # Created on : Wed Sep 22 22:30:13 IST 2010
 # (c) rkumar (arunachalesha)

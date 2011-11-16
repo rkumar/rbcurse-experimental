@@ -1,4 +1,4 @@
-require 'rbcurse/rscrollform'
+require 'rbcurse/experimental/widgets/rscrollform'
 require 'fileutils'
 
 # See tabbed pane, and add_cols nad add_rows, on_entr and set_form_row to see cursor issue
