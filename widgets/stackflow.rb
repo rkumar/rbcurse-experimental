@@ -32,8 +32,8 @@ NOTE: Still experimental
 =end
 
 require 'rbcurse'
-require 'rbcurse/common/bordertitle'
-require 'rbcurse/common/basestack'
+require 'rbcurse/core/include/bordertitle'
+require 'rbcurse/core/util/basestack'
 
 include RubyCurses
 module RubyCurses
@@ -431,7 +431,7 @@ end # module
 # @see teststackflow.rb in examples dir
 #
 if __FILE__ == $PROGRAM_NAME
-  require 'rbcurse/app'
+  require 'rbcurse/core/util/app'
   App.new do
 
     lb = Listbox.new nil, :list => ["ruby","perl","lisp","jaava", "c-blunt"] , :name => "mylist"

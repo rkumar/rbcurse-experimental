@@ -1,7 +1,7 @@
 require 'rbcurse'
 require 'fileutils'
-require 'rbcurse/rlistbox'
-require 'rbcurse/vieditable'
+require 'rbcurse/extras/widgets/rlistbox'
+require 'rbcurse/core/include/vieditable'
 require 'rbcurse/experimental/widgets/undomanager'
 ##
 # Created on : Wed Sep 22 22:30:13 IST 2010
@@ -405,7 +405,7 @@ module RubyCurses
   end
   def view_current
     file = self.current_value
-    require 'rbcurse/extras/viewer.rb'
+    require 'rbcurse/core/util/viewer.rb'
     RubyCurses::Viewer.view("#{current_path}/#{file}", :close_key => KEY_RETURN, :title => "<Enter> to close, M-l M-h to scroll")
   end
     # ADD HERE 
@@ -420,7 +420,7 @@ module RubyCurses
   # Here we should color directories or bak files or hidden files, swap files etc differently
   # Should this class do the trimming of data, else its hard to figure out what the extension
   # is if its trimeed out. But then it would have to handle the panning too.
-  require 'rbcurse/listcellrenderer'
+  require 'rbcurse/core/include/listcellrenderer'
   class DirectoryListCellRenderer < ListCellRenderer
     #def initialize text="", config={}, &block
       #super
