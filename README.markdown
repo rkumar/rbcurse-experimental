@@ -1,4 +1,4 @@
-= rbcurse-experimental
+# rbcurse-experimental
 
 This is related to the rbcurse ncurses toolkit, for building ncurses applications.
 
@@ -43,11 +43,11 @@ Contents as of time of creation of repo:
 
 
 
-== Short story
+## Short story
 
 Minimally tested but interesting stuff
 
-== Long story
+## Long story
 
 Use stuff here at your own risk. Most of this works, and will work in most situations but may not take care validations, extreme cases, wrong data passed.
 
@@ -58,7 +58,7 @@ Feel free to fork and further develop stuff in here, or submit patches to me.
 
 Some of this stuff may move to extras or core if its really useful and stable.
 
-== See also
+## See also
 
 * rbcurse - <http://github.com/rkumar/rbcurse/>
 
@@ -66,10 +66,10 @@ Some of this stuff may move to extras or core if its really useful and stable.
 
 * rbcurse-extras - <http://github.com/rkumar/rbcurse-extras/>
 
-== Install
+## Install
 
     gem install rbcurse-experimental
 
-== License
+## License
 
   Same as ruby license.
