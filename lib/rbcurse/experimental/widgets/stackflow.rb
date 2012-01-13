@@ -140,7 +140,7 @@ module RubyCurses
     def repaint # stackflow
       my_win = @form ? @form.window : @target_window
       @graphic = my_win unless @graphic
-      raise " #{@name} NO GRAPHIC set as yet                 RCONTAINER paint " unless @graphic
+      raise " #{@name} NO GRAPHIC set as yet                 STACKFLOW paint " unless @graphic
       # actually at this level we don't have margins set -- not yet.
       @margin_left   ||= 0
       @margin_right  ||= 0
@@ -193,7 +193,7 @@ module RubyCurses
       # if some major change has happened then repaint everything
       # if multiple components then last row and col needs to be stored or else overlap will happen FIXME
       if @repaint_required
-        $log.debug " CONT2 repaint graphic #{@graphic}, size:#{@components.size} "
+        $log.debug " STACKFLOW repaint graphic #{@graphic}, size:#{@components.size} "
         print_borders unless @suppress_borders # do this once only, unless everything changes
         @components.each { |e| e.repaint_all(true); e.repaint }
       else
@@ -228,7 +228,7 @@ module RubyCurses
     public
     # called by parent or form, otherwise its private
     def handle_key ch
-      $log.debug " RCONTAINER handle_key #{ch} "
+      $log.debug " STACKFLOW handle_key #{ch} "
       return if @components.empty?
       _multiplier = ($multiplier == 0 ? 1 : $multiplier )
 
@@ -238,24 +238,24 @@ module RubyCurses
         on_enter
       end
       if ch == KEY_TAB
-        $log.debug "RCONTAINER GOTO NEXT TAB"
+        $log.debug "STACKFLOW GOTO NEXT TAB"
         return goto_next_component
       elsif ch == KEY_BTAB
         return goto_prev_component
       end
       comp = @current_component
-      $log.debug " RCONTAINER handle_key #{ch}: #{comp}" 
+      $log.debug " STACKFLOW handle_key #{ch}: #{comp}" 
       if comp
         ret = comp.handle_key(ch) 
-        $log.debug " RCONTAINER handle_key#{ch}: #{comp} returned #{ret} " 
+        $log.debug " STACKFLOW handle_key#{ch}: #{comp} returned #{ret} " 
         if ret != :UNHANDLED
           comp.repaint # NOTE: if we don;t do this, then it won't get repainted. I will have to repaint ALL
           # in repaint of this.
           return ret 
         end
-        $log.debug "XXX RCONTAINER key unhandled by comp #{comp.name} "
+        $log.debug "XXX STACKFLOW key unhandled by comp #{comp.name} "
       else
-        $log.warn "XXX RCONTAINER key unhandled NULL comp"
+        $log.warn "XXX STACKFLOW key unhandled NULL comp"
       end
       case ch
       when ?\C-c.getbyte(0)
@@ -308,7 +308,7 @@ module RubyCurses
         #  in on_enter being called again
       end
       return unless @current_component
-      $log.debug " RCONTAINER came to ON_ENTER #{@current_component} "
+      $log.debug " STACKFLOW came to ON_ENTER #{@current_component} "
       set_form_row
       @_entered = true
     end
@@ -361,12 +361,12 @@ module RubyCurses
     def set_form_row
       return :UNHANDLED if @current_component.nil?
       cc = @current_component
-      $log.debug "CONT #{@name} set_form_row calling sfr for #{cc.name}, r #{cc.row} c: #{cc.col} "
-      $log.debug " RCONTAINER on enter sfr #{@current_component.name}  #{@current_component} "
+      $log.debug "STACKFLOW #{@name} set_form_row calling sfr for #{cc.name}, r #{cc.row} c: #{cc.col} "
+      $log.debug " STACKFLOW on enter sfr #{@current_component.name}  #{@current_component} "
 
       @current_component.on_enter
       @current_component.set_form_row # why was this missing in vimsplit. is it
-      $log.debug "CONT2 #{@name} set_form_row calling sfr for #{cc.name}, r #{cc.row} c: #{cc.col} "
+      $log.debug "STACKFLOW #{@name} set_form_row calling sfr for #{cc.name}, r #{cc.row} c: #{cc.col} "
       # that on_enter does a set_form_row
       @current_component.set_form_col # XXX 
       @current_component.repaint # OMG this could happen before we've set row and col
@@ -389,7 +389,7 @@ module RubyCurses
       # Some components are erroneously repainting all, after setting this to true so it is 
       # working there. 
       @current_component.repaint_required true
-      $log.debug " after on_leave RCONT XXX #{@current_component.focussed}   #{@current_component.name}"
+      $log.debug " after on_leave STACKFLOW XXX #{@current_component.focussed}   #{@current_component.name}"
       @current_component.repaint
     end
 
