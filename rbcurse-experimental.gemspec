@@ -5,17 +5,18 @@
 
 Gem::Specification.new do |s|
   s.name = "rbcurse-experimental"
-  s.version = "0.0.1"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Rahul Kumar"]
-  s.date = "2012-12-14"
-  s.description = "Ruby curses/ncurses widgets, experimental and minimally tested"
+  s.date = "2013-04-12"
+  s.description = "Ruby curses/ncurses widgets, experimental and minimally tested. Copy into your project, do not depend on this gem."
   s.email = "sentinel1879@gmail.com"
   s.extra_rdoc_files = [
     "README.markdown"
   ]
   s.files = [
+    "CHANGELOG",
     "README.markdown",
     "VERSION",
     "examples/teststackflow.rb",
@@ -27,12 +28,14 @@ Gem::Specification.new do |s|
     "lib/rbcurse/experimental/widgets/resultsettextview.rb",
     "lib/rbcurse/experimental/widgets/rscrollform.rb",
     "lib/rbcurse/experimental/widgets/stackflow.rb",
-    "lib/rbcurse/experimental/widgets/undomanager.rb"
+    "lib/rbcurse/experimental/widgets/tablewidget.rb",
+    "lib/rbcurse/experimental/widgets/undomanager.rb",
+    "rbcurse-experimental.gemspec"
   ]
   s.homepage = "http://github.com/rkumar/rbcurse-experimental"
   s.require_paths = ["lib"]
   s.rubyforge_project = "rbcurse"
-  s.rubygems_version = "1.8.23"
+  s.rubygems_version = "1.8.25"
   s.summary = "Ruby Ncurses Toolkit experimental widgets"
 
   if s.respond_to? :specification_version then
