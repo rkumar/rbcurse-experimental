@@ -12,6 +12,7 @@
 
 =end
 require 'rbcurse/core/widgets/rtextview'
+require 'rbcurse/core/util/bottomline'     # for ask()
 
 include RubyCurses
 module RubyCurses
@@ -155,7 +156,7 @@ module RubyCurses
     # connect to database, run sql and set data, columns and datatypes
     # Similar can be done with another database
     def sqlite dbname, table, sql
-      raise "file not found" unless File.exist? dbname
+      raise "App error: file not found: #{dbname} " unless File.exist? dbname
       require 'sqlite3'
       db = SQLite3::Database.new(dbname)
       columns, *rows = db.execute2(sql)
