@@ -47,7 +47,9 @@ if __FILE__ == $PROGRAM_NAME
     f3 = Field.new nil, :display_length => 20, :bgcolor => :white, 
       :color => :blue, :text => "24", :label => "Age: ", :label_color_pair => @datacolor,
       :valid_range => (20..100)
-    r = StackFlow.new @form, :row => 1, :col => 2, :width => 80, :height => 25, :title => "Stack n Flow with margins" do
+    w = Ncurses.COLS-1
+    h = Ncurses.LINES-3
+    r = StackFlow.new @form, :row => 1, :col => 1, :width => w, :height => h, :title => "Stack n Flow with margins" do
       #stack :margin_top => 2, :margin_left => 1 do
         flow :margin_top => 0, :margin_left => 2, :margin_right => 0, :orientation => :right do #:weight => 49 do 
           add tv, :weight => 40
