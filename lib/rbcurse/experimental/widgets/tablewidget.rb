@@ -5,7 +5,7 @@
 #       Author: rkumar http://github.com/rkumar/rbcurse/
 #         Date: 2013-03-29 - 20:07
 #      License: Same as Ruby's License (http://www.ruby-lang.org/LICENSE.txt)
-#  Last update: 2013-04-12 13:04
+#  Last update: 2013-04-20 18:43
 # ----------------------------------------------------------------------------- #
 #   tablewidget.rb  Copyright (C) 2012-2013 rahul kumar
 
@@ -340,7 +340,7 @@ module RubyCurses
   class TableWidget < TextPad
 
     dsl_accessor :print_footer
-    attr_reader :columns
+    #attr_reader :columns
     attr_accessor :table_row_sorter
 
     def initialize form = nil, config={}, &block
@@ -520,6 +520,10 @@ module RubyCurses
       _init_model array
     end
     alias :headings= :columns=
+
+    def columns
+      @content[0]
+    end
 
     def _init_model array
       array.each_with_index { |c,i| 
