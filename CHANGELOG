@@ -1,3 +1,7 @@
+ 2013-04-23 - 16:41 
+   Fixed Array within Array error when sorting with a nil value in column in
+   tablewidget
+
  2013-04-12 - 13:06 
    Added tablewidget which will very soon move to core, as soon as I figure
    out how to go about this.
