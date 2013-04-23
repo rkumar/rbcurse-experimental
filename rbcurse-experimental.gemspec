@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "rbcurse-experimental"
-  s.version = "0.0.2"
+  s.version = "0.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Rahul Kumar"]
-  s.date = "2013-04-12"
+  s.date = "2013-04-23"
   s.description = "Ruby curses/ncurses widgets, experimental and minimally tested. Copy into your project, do not depend on this gem."
   s.email = "sentinel1879@gmail.com"
   s.extra_rdoc_files = [
