@@ -5,7 +5,7 @@
 #       Author: rkumar http://github.com/rkumar/rbcurse/
 #         Date: 2013-03-29 - 20:07
 #      License: Same as Ruby's License (http://www.ruby-lang.org/LICENSE.txt)
-#  Last update: 2013-04-20 18:43
+#  Last update: 2013-04-23 16:19
 # ----------------------------------------------------------------------------- #
 #   tablewidget.rb  Copyright (C) 2012-2013 rahul kumar
 
@@ -122,7 +122,17 @@ module RubyCurses
             if ee < 0
               res = y[abse] <=> x[abse]
             else
+              xx = x[e]
+              yy = y[e]
+              if xx.nil? && yy.nil?
+                res = 0
+              elsif xx.nil?
+                res = -1
+              elsif yy.nil?
+                res = 1
+              else
               res = x[e] <=> y[e]
+              end
             end
             break if res != 0
           }
@@ -521,10 +531,13 @@ module RubyCurses
     end
     alias :headings= :columns=
 
+    # returns array of column names as Strings
     def columns
       @content[0]
     end
 
+    # size each column based on widths of this row of data.
+    # Only changed width if no width for that column
     def _init_model array
       array.each_with_index { |c,i| 
         # if columns added later we could be overwriting the width
