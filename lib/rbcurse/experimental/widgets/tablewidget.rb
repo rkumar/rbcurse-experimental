@@ -5,7 +5,7 @@
 #       Author: rkumar http://github.com/rkumar/rbcurse/
 #         Date: 2013-03-29 - 20:07
 #      License: Same as Ruby's License (http://www.ruby-lang.org/LICENSE.txt)
-#  Last update: 2013-04-23 16:28
+#  Last update: 2013-04-23 16:30
 # ----------------------------------------------------------------------------- #
 #   tablewidget.rb  Copyright (C) 2012-2013 rahul kumar
 
@@ -123,11 +123,11 @@ module RubyCurses
               xx = x[abse]
               yy = y[abse]
               if xx.nil? && yy.nil?
-                res = nil
+                res = 0
               elsif xx.nil?
-                res = 1
+                res = -1
               elsif yy.nil?
-                res = 1
+                res = -1
               else
               res = y[abse] <=> x[abse]
               end
