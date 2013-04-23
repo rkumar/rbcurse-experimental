@@ -5,7 +5,7 @@
 #       Author: rkumar http://github.com/rkumar/rbcurse/
 #         Date: 2013-03-29 - 20:07
 #      License: Same as Ruby's License (http://www.ruby-lang.org/LICENSE.txt)
-#  Last update: 2013-04-23 16:31
+#  Last update: 2013-04-23 16:33
 # ----------------------------------------------------------------------------- #
 #   tablewidget.rb  Copyright (C) 2012-2013 rahul kumar
 
@@ -122,6 +122,7 @@ module RubyCurses
             if ee < 0
               xx = x[abse]
               yy = y[abse]
+              # the following checks are since nil values cause an error to be raised
               if xx.nil? && yy.nil?
                 res = 0
               elsif xx.nil?
@@ -134,6 +135,8 @@ module RubyCurses
             else
               xx = x[e]
               yy = y[e]
+              # the following checks are since nil values cause an error to be raised
+              # whereas we want a nil to be wither treated as a zero or a blank
               if xx.nil? && yy.nil?
                 res = 0
               elsif xx.nil?
