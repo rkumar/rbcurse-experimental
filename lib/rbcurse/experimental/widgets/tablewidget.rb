@@ -5,7 +5,7 @@
 #       Author: rkumar http://github.com/rkumar/rbcurse/
 #         Date: 2013-03-29 - 20:07
 #      License: Same as Ruby's License (http://www.ruby-lang.org/LICENSE.txt)
-#  Last update: 2013-04-23 16:33
+#  Last update: 2013-04-24 18:47
 # ----------------------------------------------------------------------------- #
 #   tablewidget.rb  Copyright (C) 2012-2013 rahul kumar
 
@@ -720,6 +720,7 @@ module RubyCurses
     def next_match str
       _calculate_column_offsets unless @coffsets
       first = nil
+      $log.debug "XXX:  COMES to next_match in tablewidget"
       ## content can be string or Chunkline, so we had to write <tt>index</tt> for this.
       @content.each_with_index do |fields, ix|
         #col = line.index str
@@ -731,6 +732,7 @@ module RubyCurses
           # value can be numeric
           col = f.to_s.index str
           if col
+            $log.debug "XXX:  next_match str #{str} found at #{col} in row #{ix} "
             col += @coffsets[jx] 
             first ||= [ ix, col ]
             if ix > @current_index
