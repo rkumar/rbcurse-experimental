@@ -5,7 +5,7 @@
 #       Author: rkumar http://github.com/rkumar/rbcurse/
 #         Date: 2013-03-29 - 20:07
 #      License: Same as Ruby's License (http://www.ruby-lang.org/LICENSE.txt)
-#  Last update: 2013-04-24 18:47
+#  Last update: 2013-04-25 18:16
 # ----------------------------------------------------------------------------- #
 #   tablewidget.rb  Copyright (C) 2012-2013 rahul kumar
 
@@ -182,178 +182,178 @@ module RubyCurses
   #
   # perhaps we can combine the two but have different methods or some flag
   # that way oter methods can be shared
-  class DefaultTableRenderer
+    class DefaultTableRenderer
 
-    # source is the textpad or extending widget needed so we can call show_colored_chunks
-    # if the user specifies column wise colors
-    def initialize source
-      @source = source
-      @y = '|'
-      @x = '+'
-      @coffsets = []
-      @header_color = :red
-      @header_bgcolor = :white
-      @header_attrib = NORMAL
-      @color = :white
-      @bgcolor = :black
-      @color_pair = $datacolor
-      @attrib = NORMAL
-      @_check_coloring = nil
-    end
-    def header_colors fg, bg
-      @header_color = fg
-      @header_bgcolor = bg
-    end
-    def header_attrib att
-      @header_attrib = att
-    end
-    # set fg and bg color of content rows, default is $datacolor (white on black).
-    def content_colors fg, bg
-      @color = fg
-      @bgcolor = bg
-      @color_pair = get_color($datacolor, fg, bg)
-    end
-    def content_attrib att
-      @attrib = att
-    end
-    def column_model c
-      @chash = c
-    end
-    ##
-    # Takes the array of row data and formats it using column widths
-    # and returns a string which is used for printing
-    #
-    # TODO return an array so caller can color columns if need be
-    def convert_value_to_text r  
-      str = []
-      fmt = nil
-      field = nil
-      # we need to loop through chash and get index from it and get that row from r
-      #r.each_with_index { |e, i| 
-        #c = @chash[i]
-      #@chash.each_with_index { |c, i| 
-        #next if c.hidden
-      each_column {|c,i|
-        e = r[c.index]
-        w = c.width
-        l = e.to_s.length
-        # if value is longer than width, then truncate it
-        if l > w
-          fmt = "%.#{w}s "
-        else
-          case c.align
-          when :right
-            fmt = "%#{w}s "
-          else
-            fmt = "%-#{w}s "
-          end
-        end
-        field = fmt % e
-        # if we really want to print a single column with color, we need to print here itself
-        # each cell. If we want the user to use tmux formatting in the column itself ...
-        # FIXME - this must not be done for headers.
-        #if c.color
-          #field = "#[fg=#{c.color}]#{field}#[/end]"
-        #end
-        str << field
-      }
-      return str
-    end
-    #
-    # @param pad for calling print methods on
-    # @param lineno the line number on the pad to print on
-    # @param text data to print
-    def render pad, lineno, str
-      #lineno += 1 # header_adjustment
-      return render_header pad, lineno, 0, str if lineno == 0
-      #text = str.join " | "
-      #text = @fmstr % str
-      text = convert_value_to_text str
-      if @_check_coloring
-        $log.debug "XXX:  INSIDE COLORIIN"
-        text = colorize pad, lineno, text
-        return
+      # source is the textpad or extending widget needed so we can call show_colored_chunks
+      # if the user specifies column wise colors
+      def initialize source
+        @source = source
+        @y = '|'
+        @x = '+'
+        @coffsets = []
+        @header_color = :red
+        @header_bgcolor = :white
+        @header_attrib = NORMAL
+        @color = :white
+        @bgcolor = :black
+        @color_pair = $datacolor
+        @attrib = NORMAL
+        @_check_coloring = nil
       end
-      # check if any specific colors , if so then print colors in a loop with no dependence on colored chunks
-      # then we don't need source pointer
-      text = text.join
-      $log.debug "XXX:  NOTINSIDE COLORIIN"
-      #if text.index "#["
-        #require 'rbcurse/core/include/chunk'
-        #@parser ||= Chunks::ColorParser.new :tmux
-        #text = @parser.convert_to_chunk text
-        #FFI::NCurses.wmove pad, lineno, 0
-        #@source.show_colored_chunks text, nil, nil
-        #return
-      #end
-      # FIXME why repeatedly getting this colorpair
-      cp = @color_pair
-      att = @attrib
-      FFI::NCurses.wattron(pad,FFI::NCurses.COLOR_PAIR(cp) | att)
-      FFI::NCurses.mvwaddstr(pad, lineno, 0, text)
-      FFI::NCurses.wattroff(pad,FFI::NCurses.COLOR_PAIR(cp) | att)
-
-    end
-    def render_header pad, lineno, col, columns
-      # I could do it once only but if user sets colors midway we can check once whenvever
-      # repainting
-      check_colors #if @_check_coloring.nil?
-      #text = columns.join " | "
-      #text = @fmstr % columns
-      text = convert_value_to_text columns
-      text = text.join
-      bg = @header_bgcolor
-      fg = @header_color
-      att = @header_attrib
-      #cp = $datacolor
-      cp = get_color($datacolor, fg, bg)
-      FFI::NCurses.wattron(pad,FFI::NCurses.COLOR_PAIR(cp) | att)
-      FFI::NCurses.mvwaddstr(pad, lineno, col, text)
-      FFI::NCurses.wattroff(pad,FFI::NCurses.COLOR_PAIR(cp) | att)
-    end
-    # check if we need to individually color columns or we can do the entire
-    # row in one shot
-    def check_colors
-      each_column {|c,i|
-      #@chash.each_with_index { |c, i| 
+      def header_colors fg, bg
+        @header_color = fg
+        @header_bgcolor = bg
+      end
+      def header_attrib att
+        @header_attrib = att
+      end
+      # set fg and bg color of content rows, default is $datacolor (white on black).
+      def content_colors fg, bg
+        @color = fg
+        @bgcolor = bg
+        @color_pair = get_color($datacolor, fg, bg)
+      end
+      def content_attrib att
+        @attrib = att
+      end
+      def column_model c
+        @chash = c
+      end
+      ##
+      # Takes the array of row data and formats it using column widths
+      # and returns a string which is used for printing
+      #
+      # TODO return an array so caller can color columns if need be
+      def convert_value_to_text r  
+        str = []
+        fmt = nil
+        field = nil
+        # we need to loop through chash and get index from it and get that row from r
+        #r.each_with_index { |e, i| 
+        #c = @chash[i]
+        #@chash.each_with_index { |c, i| 
         #next if c.hidden
-        if c.color || c.bgcolor || c.attrib
-          @_check_coloring = true
+        each_column {|c,i|
+          e = r[c.index]
+          w = c.width
+          l = e.to_s.length
+          # if value is longer than width, then truncate it
+          if l > w
+            fmt = "%.#{w}s "
+          else
+            case c.align
+            when :right
+              fmt = "%#{w}s "
+            else
+              fmt = "%-#{w}s "
+            end
+          end
+          field = fmt % e
+          # if we really want to print a single column with color, we need to print here itself
+          # each cell. If we want the user to use tmux formatting in the column itself ...
+          # FIXME - this must not be done for headers.
+          #if c.color
+          #field = "#[fg=#{c.color}]#{field}#[/end]"
+          #end
+          str << field
+        }
+        return str
+      end
+      #
+      # @param pad for calling print methods on
+      # @param lineno the line number on the pad to print on
+      # @param text data to print
+      def render pad, lineno, str
+        #lineno += 1 # header_adjustment
+        return render_header pad, lineno, 0, str if lineno == 0
+        #text = str.join " | "
+        #text = @fmstr % str
+        text = convert_value_to_text str
+        if @_check_coloring
+          #$log.debug "XXX:  INSIDE COLORIIN"
+          text = colorize pad, lineno, text
           return
         end
-        @_check_coloring = false
-      }
-    end
-    def each_column
-      @chash.each_with_index { |c, i| 
-        next if c.hidden
-        yield c,i if block_given?
-      }
-    end
-  def colorize pad, lineno, r
-    # the incoming data is already in the order of display based on chash,
-    # so we cannot run chash on it again, so how do we get the color info
-    _offset = 0
-    # we need to get coffsets here FIXME
-    #@chash.each_with_index { |c, i| 
-      #next if c.hidden
-    each_column {|c,i|
-      text = r[i]
-      color = c.color
-      bg = c.bgcolor
-      if color || bg
-        cp = get_color(@color_pair, color || @color, bg || @bgcolor)
-      else
-        cp = @color_pair
+        # check if any specific colors , if so then print colors in a loop with no dependence on colored chunks
+        # then we don't need source pointer
+        render_data pad, lineno, text
+
       end
-      att = c.attrib || @attrib
-      FFI::NCurses.wattron(pad,FFI::NCurses.COLOR_PAIR(cp) | att)
-      FFI::NCurses.mvwaddstr(pad, lineno, _offset, text)
-      FFI::NCurses.wattroff(pad,FFI::NCurses.COLOR_PAIR(cp) | att)
-      _offset += text.length
-    }
-  end
-  end
+      # passes padded data for final printing or data row
+      # this allows user to do row related coloring without having to tamper
+      # with the headers or other internal workings. This will not be called
+      # if column specific colorign is in effect.
+      # @param text is an array of strings, in the order of actual printing with hidden cols removed
+      def render_data pad, lineno, text
+        text = text.join
+        # FIXME why repeatedly getting this colorpair
+        cp = @color_pair
+        att = @attrib
+        FFI::NCurses.wattron(pad,FFI::NCurses.COLOR_PAIR(cp) | att)
+        FFI::NCurses.mvwaddstr(pad, lineno, 0, text)
+        FFI::NCurses.wattroff(pad,FFI::NCurses.COLOR_PAIR(cp) | att)
+      end
+
+      def render_header pad, lineno, col, columns
+        # I could do it once only but if user sets colors midway we can check once whenvever
+        # repainting
+        check_colors #if @_check_coloring.nil?
+        #text = columns.join " | "
+        #text = @fmstr % columns
+        text = convert_value_to_text columns
+        text = text.join
+        bg = @header_bgcolor
+        fg = @header_color
+        att = @header_attrib
+        #cp = $datacolor
+        cp = get_color($datacolor, fg, bg)
+        FFI::NCurses.wattron(pad,FFI::NCurses.COLOR_PAIR(cp) | att)
+        FFI::NCurses.mvwaddstr(pad, lineno, col, text)
+        FFI::NCurses.wattroff(pad,FFI::NCurses.COLOR_PAIR(cp) | att)
+      end
+      # check if we need to individually color columns or we can do the entire
+      # row in one shot
+      def check_colors
+        each_column {|c,i|
+          #@chash.each_with_index { |c, i| 
+          #next if c.hidden
+          if c.color || c.bgcolor || c.attrib
+            @_check_coloring = true
+            return
+          end
+          @_check_coloring = false
+        }
+      end
+      def each_column
+        @chash.each_with_index { |c, i| 
+          next if c.hidden
+          yield c,i if block_given?
+        }
+      end
+      def colorize pad, lineno, r
+        # the incoming data is already in the order of display based on chash,
+        # so we cannot run chash on it again, so how do we get the color info
+        _offset = 0
+        # we need to get coffsets here FIXME
+        #@chash.each_with_index { |c, i| 
+        #next if c.hidden
+        each_column {|c,i|
+          text = r[i]
+          color = c.color
+          bg = c.bgcolor
+          if color || bg
+            cp = get_color(@color_pair, color || @color, bg || @bgcolor)
+          else
+            cp = @color_pair
+          end
+          att = c.attrib || @attrib
+          FFI::NCurses.wattron(pad,FFI::NCurses.COLOR_PAIR(cp) | att)
+          FFI::NCurses.mvwaddstr(pad, lineno, _offset, text)
+          FFI::NCurses.wattroff(pad,FFI::NCurses.COLOR_PAIR(cp) | att)
+          _offset += text.length
+        }
+      end
+    end
 
   # If we make a pad of the whole thing then the columns will also go out when scrolling
   # So then there's no point storing columns separately. Might as well keep in content
@@ -720,7 +720,6 @@ module RubyCurses
     def next_match str
       _calculate_column_offsets unless @coffsets
       first = nil
-      $log.debug "XXX:  COMES to next_match in tablewidget"
       ## content can be string or Chunkline, so we had to write <tt>index</tt> for this.
       @content.each_with_index do |fields, ix|
         #col = line.index str
@@ -732,7 +731,6 @@ module RubyCurses
           # value can be numeric
           col = f.to_s.index str
           if col
-            $log.debug "XXX:  next_match str #{str} found at #{col} in row #{ix} "
             col += @coffsets[jx] 
             first ||= [ ix, col ]
             if ix > @current_index
