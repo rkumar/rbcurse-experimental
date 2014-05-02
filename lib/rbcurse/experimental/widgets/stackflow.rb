@@ -10,7 +10,7 @@ NOTE: Still experimental
   * Date:  23.10.11 - 19:55
   * License: Same as Ruby's License (http://www.ruby-lang.org/LICENSE.txt)
 
-  * Last update:  30.10.11 - 12:55
+  * Last update:  2014-05-02 18:50
 
   == CHANGES
      Have moved most things out to a module ModStack, so this is sort of just 
@@ -434,10 +434,10 @@ if __FILE__ == $PROGRAM_NAME
   require 'rbcurse/core/util/app'
   App.new do
 
-    lb = Listbox.new nil, :list => ["ruby","perl","lisp","jaava", "c-blunt"] , :name => "mylist"
-    lb1 = Listbox.new nil, :list => ["roger","borg","haas","tsonga", "kolya","delpotro"] , :name => "mylist1"
+    lb = List.new nil, :list => ["ruby","perl","lisp","jaava", "c-blunt"] , :name => "mylist"
+    lb1 = List.new nil, :list => ["roger","borg","haas","tsonga", "kolya","delpotro"] , :name => "mylist1"
 
-    lb2 = Listbox.new nil, :list => `gem list --local`.split("\n") , :name => "mylist2"
+    lb2 = List.new nil, :list => `gem list --local`.split("\n") , :name => "mylist2"
 
     alist = %w[ ruby perl python java jruby macruby rubinius rails rack sinatra pylons django cakephp grails] 
     str = "Hello people of this world.\nThis is a textbox.\nUse arrow keys, j/k/h/l/gg/G/C-a/C-e/C-n/C-p\n"
