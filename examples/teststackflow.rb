@@ -6,7 +6,7 @@
   * Author        : rkumar http://github.com/rkumar/rbcurse/
   * Date          : 25.10.11 - 12:57
   * License       :
-  * Last update   : Use ,,L to update
+  * Last update   : 2014-05-02 18:44
     Same as Ruby's License (http://www.ruby-lang.org/LICENSE.txt)
 
 =end
@@ -14,14 +14,14 @@
 
 if __FILE__ == $PROGRAM_NAME
   require 'rbcurse/core/util/app'
-  require 'rbcurse/extras/widgets/rlistbox'
+  require 'rbcurse/core/widgets/rlist'
   require 'rbcurse/experimental/widgets/stackflow'
   App.new do
 
-    lb = Listbox.new nil, :list => ["borodin","berlioz","bernstein","balakirev", "elgar"] , :name => "mylist"
-    lb1 = Listbox.new nil, :list => ["bach","beethoven","mozart","gorecki", "chopin","wagner","grieg","holst"] , :name => "mylist1"
+    lb = List.new nil, :list => ["borodin","berlioz","bernstein","balakirev", "elgar"] , :name => "mylist"
+    lb1 = List.new nil, :list => ["bach","beethoven","mozart","gorecki", "chopin","wagner","grieg","holst"] , :name => "mylist1"
 
-    lb2 = Listbox.new nil, :list => `gem list --local`.split("\n") , :name => "mylist2"
+    lb2 = List.new nil, :list => `gem list --local`.split("\n") , :name => "mylist2"
 
     alist = %w[ ruby perl python java jruby macruby rubinius rails rack sinatra pylons django cakephp grails] 
     str = "Hello, people of Earth.\nI am HAL, a textbox.\nUse arrow keys, j/k/h/l/gg/G/C-a/C-e/C-n/C-p\n"
